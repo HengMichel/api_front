@@ -1,0 +1,34 @@
+.box{
+    width: 60%;
+    margin: 100px auto;
+    display: flex;
+    height: 700px;
+}
+
+.user_list{
+    width: 30%;
+    border:solid 2px black;
+    padding: 15px 15px;
+}
+
+.message{
+    width: 70%;
+    border:solid 2px black;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 5px 15px;
+}
+
+#message{
+    width: 85%;
+    height: 45px;
+}
+
+.expediteur{
+    direction: rtl;
+}
+
+.recepteur{
+    direction: ltr;
+}
