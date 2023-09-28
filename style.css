@@ -7,8 +7,16 @@
 
 .user_list{
     width: 30%;
-    border:solid 2px black;
+    border:solid 2px;
     padding: 15px 15px;
+    border-radius: 10px;
+}
+.user_list>p{
+    border: solid 3px;
+    border-radius: 8px;
+    border-color: palevioletred;
+    border-top-style: groove;
+
 }
 
 .message{
@@ -18,17 +26,39 @@
     flex-direction: column;
     justify-content: space-between;
     padding: 5px 15px;
+    border-radius: 10px;
+
 }
 
 #message{
     width: 85%;
     height: 45px;
+    justify-content: center;
 }
+ .message{
+    margin-right: 140px;
 
+ }
 .expediteur{
-    direction: rtl;
+    background-color: white;
+    color: teal;
+    border-radius: 5px;
+    padding-left: 5px;
+    padding-right: 5px;
+    width: 200px;
+    border: solid 2px;
+    margin: 5px 0 5px 200px;
 }
 
 .recepteur{
+    width: 200px;
+    border: solid 2px;
+    margin: 5px 0;
+
     direction: ltr;
+    background-color: rgb(212, 165, 202);
+    color: rgb(126, 123, 123);
+    border-radius: 5px;
+    padding-left: 5px;
+    padding-right: 5px;
 }

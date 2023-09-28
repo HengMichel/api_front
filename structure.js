@@ -1,8 +1,12 @@
 const REGISTERFORM = $("#registerForm");
 const LOGINFORM = $("#loginForm");
+const MESSAGEFORM = $("#messageForm");
+let interlocutor =null;
 getUserList();
 
+// au click sur le bouton s'inscrire
 REGISTERFORM.on("submit", (e) => {
+
   // pour empêcher l'envoi du formulaire
   e.preventDefault();
 
@@ -16,6 +20,7 @@ REGISTERFORM.on("submit", (e) => {
   // appel de la fonction register
   register(pseudo, firstName, lastName, password, action);
 });
+
 LOGINFORM.on("submit", (e) => {
   // pour empêcher l'envoi du formulaire
   e.preventDefault();
@@ -29,6 +34,18 @@ LOGINFORM.on("submit", (e) => {
   login(pseudo, password, action);
 });
 
+// au click sur le bouton envoyer message
+MESSAGEFORM.on('submit', (e) => {
+  e.preventDefault();
+  // récupération du message
+  let message = $("#message").val();
+  let action = $("#action").val();
+  let expeditor= localStorage.getItem("iduser"); 
+  let receiver = interlocutor;
+  // appel de la fonction sendMessage
+  sendMessage(expeditor,receiver,message,action);
+});
+
 // fonction register
 function register(pseudo, firstName, lastName, password, action) {
   let data = {
@@ -37,7 +54,7 @@ function register(pseudo, firstName, lastName, password, action) {
     password: password,
     firstname: firstName,
     lastname: lastName,
-    action: action,
+    action: action
   };
 
   let dataOption = {
@@ -122,6 +139,7 @@ function printUsers(listUser) {
 
     p.addEventListener("click", () => {
       getListMessage(localStorage.getItem("iduser"), p.id);
+      interlocutor = p.id;
     });
 
     // on ajoute le paragraphe comme enfant de la div avec la class user_list
@@ -172,4 +190,35 @@ function printMessages(listMessage) {
     }
     $("#discution").append(div);
   });
+}
+
+// fonction pour envoyer un message
+function sendMessage(expeditor,receiver,message,action){
+  let data = {
+    expeditor:expeditor,
+    receiver:receiver,
+    message: message,
+    action:action
+  };
+  let dataOption ={
+    method:"post",
+    body: JSON.stringify(data)
+  };
+
+  // on envoie la requête vers l'api
+  fetch("http://localhost/api_back/", dataOption)
+  .then((response)=> {
+    response.json()
+    .then(data=>{
+      // console.log(data);
+      getListMessage(expeditor,receiver);
+
+      // pour vider le champs de l'input
+      $("#message").val("").select();
+    })
+    .catch((error)=>console.log(error));
+
+  })
+  .catch((error)=>console.log(error));
+
 }
